@@ -52,6 +52,8 @@ export async function getServer(){
 
   // subscription filter
   const subscriptionFilter = async (path, message, opt) => {
+    if (!opt?.credentials?.user?._id) return false;
+    if (!message?.sendTo) return false;
     return message.sendTo.indexOf(opt.credentials.user._id) !== -1;
   };
 
