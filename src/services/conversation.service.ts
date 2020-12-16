@@ -28,6 +28,8 @@ export default class Service extends BaseServiceMongoose<IModel> {
   }
 
   protected async afterCreate(u, payload, entity) {
+    // set sendTo to send message
+    payload.sendTo = payload.participants;
     // create a system message on conversation
     await server.publish("/user/conversations", payload);
     return
